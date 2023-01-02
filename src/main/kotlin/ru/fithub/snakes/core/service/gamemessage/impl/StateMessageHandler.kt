@@ -40,8 +40,16 @@ class StateMessageHandler(
                     fillMasterId(msg)
                     fillPlayerId(msg)
                 }
+                if(applicationStateService.nodeRole != NodeRole.VIEWER) {
+                    checkOnViewer()
+                }
             }
         }
+    }
+
+    private fun checkOnViewer() {
+        if(generalRepository.gameState!!.findPlayerById(generalRepository.playerId!!)!!.role == NodeRole.VIEWER)
+            applicationStateService.changeState(ApplicationStateType.GAME, NodeRole.VIEWER)
     }
 
     private fun fillMasterId(msg: GameMessage<StateMsg>) {

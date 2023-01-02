@@ -1,12 +1,13 @@
 package ru.fithub.snakes.core.config
 
+import ru.fithub.snakes.SnakesApplication
 import java.io.FileInputStream
 import java.util.*
 
 class GameProperties private constructor(){
     val properties: Properties = Properties()
     init {
-        FileInputStream("C:\\Users\\nikol\\Documents\\progects\\online-snakes\\src\\main\\resources\\ru\\fithub\\snakes\\application.properties").use {
+        SnakesApplication::class.java.getResourceAsStream("application.properties").use {
             properties.load(it)
         }
     }
